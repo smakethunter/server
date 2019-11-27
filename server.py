@@ -5,6 +5,8 @@ from abc import ABC, abstractmethod
 from typing import Optional,List, Dict
 import unittest
 #deklaracja maksymaclnej dlugosci
+#Wojciech Pełka i Konrad Stalmach
+
 MAX=100
 
 class Product:
