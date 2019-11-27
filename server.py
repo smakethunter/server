@@ -41,7 +41,7 @@ class Server(ABC):
     def __init__(self,max=1):
         self.n_max_returned_entries = max
         pass
-
+        self.n_max_returned_entries=max
     @abstractmethod
     def get_entries(self,n_letters:int):
         pass
@@ -51,19 +51,7 @@ class ListServer(Server):
         self.products: List[Product] = product_list
         super().__init__(max)
 
-    '''
-    @property
-    def n_max_returned_entries(self):
-        return self.__n_max_returned_entries
-    @n_max_returned_entries.setter
-    def n_max_returned_entries(self,v=0):
-        if len(self.products)>100:
-            self.__n_max_returned_entries=len(self.products)/10
-        elif v!=0:
-            self.__n_max_returned_entries=v
-        else:
-            self.__n_max_returned_entries=len(self.products)
-    '''
+
     def get_entries(self, n_letters:int)->product_l:
         matching_list:product_l=[]
         matching_letters= n_letters * '[a-zA-Z]'
@@ -129,7 +117,8 @@ class Client:
 class ServerTest(unittest.TestCase):
     ls = ListServer([Product('AB123', 123), Product('abd123', 1234),Product('abc12',1000)],3)
     ls2= ListServer([Product('AB123', 123), Product('abd123', 1234),Product('abc12',1000)],0)
-    ds = MapServer([Product('ABSSasjnd123', 123), Product('abd123', 1234),Product('abc12',1000)],3)
+    ds = MapServer([Product('ABc123', 123), Product('abd123', 1234),Product('abc12',1000)],3)
+    ds2 = MapServer([Product('ABc123', 123), Product('abd123', 1234), Product('abc12', 1000)], 1)
     def test_List(self):
 
         self.assertEqual(self.ls.n_max_returned_entries,3)
@@ -145,10 +134,13 @@ class ServerTest(unittest.TestCase):
         c=Client(self.ls)
         cd=Client(self.ds)
         cd_with_exepition=Client(self.ls2)
-        self.assertEqual(c.get_total_price(3),2234)
-        self.assertEqual(cd.get_total_price(3), 2234)
+        self.assertEqual(c.get_total_price(3),2357)
+        self.assertEqual(cd.get_total_price(3), 2357)
         self.assertEqual(c.get_total_price(2), 123)
         self.assertEqual(cd.get_total_price(2), None)
         self.assertEqual(cd_with_exepition.get_total_price(2), None)
+
+    def test_exeption(self):
+       self.assertRaises(TooManyProductsFoundError, self.ds2.get_entries(3))
 if __name__ == '__main__':
     unittest.main()
