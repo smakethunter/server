@@ -4,6 +4,7 @@ import re
 from abc import ABC, abstractmethod
 from typing import Optional,List, Dict
 import unittest
+#deklaracja maksymaclnej dlugosci
 MAX=100
 
 class Product:
@@ -93,17 +94,7 @@ class MapServer(Server):
         for product in product_list:
             self.product_dict[product.name]= product.price
 
-    '''        
-    @property
-    def n_max_returned_entries(self):
-        return self.__n_max_returned_entries
-    @n_max_returned_entries.setter
-    def n_max_returned_entries(self, v=0):
-        if len(self.product_dict) > 100:
-            self.__n_max_returned_entries = len(self.product_dict) / 10
-        else:
-            self.__n_max_returned_entries = len(self.product_dict)
-    '''
+
     def get_entries(self, n_letters:int)->product_l:
         matching_list: product_l = []
         matching_letters = n_letters * '[a-zA-Z]'
