@@ -20,7 +20,11 @@ class Product:
 
 # Reprezentuje wyjątek związany ze znalezieniem zbyt dużej liczby produktów.
 class TooManyProductsFoundError(Exception):
-
+    def __init__(self, max:int,current:int):
+        self.max=max
+        self.current=current
+    def __str__(self):
+        return f"Too many arguments max: {self.max} but  {self.current} given"
     pass
 
 
@@ -56,12 +60,13 @@ class ListServer(Server):
             try:
                 if len(matching_list)>self.n_max_returned_entries:
 
-                    raise TooManyProductsFoundError('Too many entries')
+                    raise TooManyProductsFoundError(self.n_max_returned_entries, len(matching_list))
                 if re.match(matching_letters1,product.name) or re.match(matching_letters2,product.name):
                     matching_list.append(product)
 
-            except TooManyProductsFoundError:
+            except TooManyProductsFoundError as TPE:
                 matching_list=[]
+                print(TPE)
 
         return matching_list
 
@@ -93,13 +98,17 @@ class MapServer(Server):
         for product, price in self.product_dict.items():
             try:
                 if len(matching_list)>self.n_max_returned_entries:
-                    raise TooManyProductsFoundError
+
+                    raise TooManyProductsFoundError(self.n_max_returned_entries, len(matching_list))
 
                 if re.match(matching_letters1, product) or re.match(matching_letters2, product):
                     matching_list.append(Product(product,price))
 
-            except TooManyProductsFoundError:
-                return []
+            except TooManyProductsFoundError as TPE:
+                print(TPE)
+                matching_list=[]
+
+
 
 
         return matching_list

@@ -1,6 +1,7 @@
-import unittest
 
-from server import ListServer, Product, Client, MapServer
+import unittest
+import sys
+from server import ListServer, Product, Client, MapServer,TooManyProductsFoundError
 
 server_types = (ListServer, MapServer)
 
@@ -53,5 +54,9 @@ class ServerTest(unittest.TestCase):
                 server = server_type(products)
                 client = Client(server)
                 self.assertEqual(5, client.get_total_price(2))
+    def test_exceptions(self):
+#do dodania jak ogarnę
+       pass
+
 if __name__ == '__main__':
     unittest.main()
