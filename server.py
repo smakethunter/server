@@ -15,6 +15,11 @@ class Product:
         self.name = product_
         self.price = price_
 
+    def __hash__(self):
+        return hash((self.name, self.price))
+
+    def __eq__(self, other):
+        return self.name == other.name and self.price == other.price
 
     pass
 
