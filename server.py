@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import operator
 import re
 from abc import ABC, abstractmethod
 from typing import Optional,List, Dict
@@ -61,7 +62,7 @@ class ListServer(Server):
         matching_letters2 = matching_letters + "[0-9][0-9][0-9]$"
         matching_letters1=matching_letters + "[0-9][0-9]$"
 
-        for product in self.products:
+        for product in sorted(self.products,key=operator.attrgetter('price')):
             try:
                 if len(matching_list)>self.n_max_returned_entries:
 
@@ -100,7 +101,7 @@ class MapServer(Server):
         matching_letters1 = matching_letters + "[0-9][0-9]$"
 
 
-        for product, price in self.product_dict.items():
+        for product, price in sorted(self.product_dict.items(),key=operator.itemgetter(1)):
             try:
                 if len(matching_list)>self.n_max_returned_entries:
 
