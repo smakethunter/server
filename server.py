@@ -1,3 +1,5 @@
+#Wojciech Pełka  302895 i Konrad Stalmach 302915 grupa 4b
+
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import operator
@@ -6,7 +8,7 @@ from abc import ABC, abstractmethod
 from typing import Optional,List, Dict
 
 
-#Wojciech Pełka  i Konrad Stalmach
+
 
 class Product:
     # FIXME: klasa powinna posiadać metodę inicjalizacyjną przyjmującą argumenty wyrażające nazwę produktu (typu str) i jego cenę (typu float) -- w takiej kolejności -- i ustawiającą atrybuty `name` (typu str) oraz `price` (typu float)
