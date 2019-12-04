@@ -1,7 +1,7 @@
 
 import unittest
-import sys
-from server import ListServer, Product, Client, MapServer,TooManyProductsFoundError
+
+from servers import ListServer, Product, Client, MapServer,TooManyProductsFoundError
 from collections import Counter
 server_types = (ListServer, MapServer)
 
