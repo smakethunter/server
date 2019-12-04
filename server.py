@@ -4,11 +4,9 @@ import operator
 import re
 from abc import ABC, abstractmethod
 from typing import Optional,List, Dict
-import unittest
-#deklaracja maksymaclnej dlugosci
-#Wojciech Pełka i Konrad Stalmach
 
-MAX=100
+
+#Wojciech Pełka  i Konrad Stalmach
 
 class Product:
     # FIXME: klasa powinna posiadać metodę inicjalizacyjną przyjmującą argumenty wyrażające nazwę produktu (typu str) i jego cenę (typu float) -- w takiej kolejności -- i ustawiającą atrybuty `name` (typu str) oraz `price` (typu float)
@@ -72,7 +70,7 @@ class ListServer(Server):
 
             except TooManyProductsFoundError as TPE:
                 matching_list=[]
-                print(TPE)
+                #print(TPE)
 
         return matching_list
 
@@ -111,7 +109,7 @@ class MapServer(Server):
                     matching_list.append(Product(product,price))
 
             except TooManyProductsFoundError as TPE:
-                print(TPE)
+                #print(TPE)
                 matching_list=[]
 
 
