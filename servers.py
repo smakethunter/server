@@ -42,7 +42,7 @@ class TooManyProductsFoundError(Exception):
 product_l= List[Product]
 
 class Server(ABC):
-    def __init__(self,max=1):
+    def __init__(self,max=5):
         self.n_max_returned_entries = max
 
     @abstractmethod
@@ -112,7 +112,9 @@ class MapServer(Server):
 
             except TooManyProductsFoundError as TPE:
                 #print(TPE)
-                matching_list=[]
+
+                return []
+
 
 
 

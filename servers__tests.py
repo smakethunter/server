@@ -10,6 +10,7 @@ class ServerTest(unittest.TestCase):
     ls2= ListServer([Product('AB123', 123), Product('abd123', 1234),Product('abc12',1000)],0)
     ds = MapServer([Product('abd123', 1000), Product('Abd123', 2000),Product('abc12',0)],3)
     ds2 = MapServer([Product('ABc123', 123), Product('abd123', 1234), Product('abc12', 1000)])
+    ds3=MapServer([Product('ABc123', 123), Product('abd123', 1234), Product('abc12', 1000)],0)
     def test_List(self):
 
         self.assertEqual(self.ls.n_max_returned_entries,3)
@@ -25,23 +26,15 @@ class ServerTest(unittest.TestCase):
         c=Client(self.ls)
         cd=Client(self.ds)
         cd2=Client(self.ds2)
-        cd_with_exepition=Client(self.ls2)
+        client_empty=Client(self.ds3)
         self.assertEqual(c.get_total_price(3),3230)
         self.assertEqual(cd.get_total_price(3), 3000)
         self.assertEqual(c.get_total_price(2), None)
         self.assertEqual(cd.get_total_price(2), None)
         self.assertEqual(cd2.get_total_price(2), None)
-        self.assertEqual(cd_with_exepition.get_total_price(2), None)
 
-    def test_get_entries_returns_proper_entries(self):
-            products = [Product('P12', 1), Product('PP234', 2), Product('PP235', 1)]
-            for server_type in server_types:
-                server = server_type(products,0)
-                entries = server.get_entries(2)
-                self.assertEqual(entries,[])
-                server2 = server_type(products, 3)
-                entries2 = server2.get_entries(2)
-                self.assertEqual(len(entries2),2)
+
+
 
 
 
@@ -52,9 +45,15 @@ class ServerTest(unittest.TestCase):
                 server = server_type(products)
                 client = Client(server)
                 self.assertEqual(5, client.get_total_price(2))
-    def test_exceptions(self):
-#do dodania jak ogarnę
-       pass
+    '''  def test_exceptions(self):
+        with self.assertRaises(TooManyProductsFoundError):
+            ds3 = MapServer([Product('ABc123', 123), Product('abd123', 1234), Product('abc12', 1000)], 0)
+            ds3.get_entries(3)
+    '''
+
+
+
+
 
 
 class ServerTest2(unittest.TestCase):
