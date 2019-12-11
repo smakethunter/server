@@ -42,17 +42,18 @@ class TooManyProductsFoundError(Exception):
 product_l= List[Product]
 
 class Server(ABC):
-    def __init__(self,max=5):
-        self.n_max_returned_entries = max
+
 
     @abstractmethod
     def get_entries(self,n_letters:int):
         pass
     pass
+
 class ListServer(Server):
     def __init__(self, product_list: product_l,max=5):
+
         self.products: List[Product] = product_list
-        super().__init__(max)
+        self.n_max_returned_entries=max
     def __str__(self):
         return f"{self.products}"
 
@@ -85,13 +86,13 @@ class ListServer(Server):
 class MapServer(Server):
     product_dict=None
     def __init__(self, product_list :product_l,max=5,*args,**kwargs):
-        self.product_dict={}
-        super().__init__(max)
-        for product in product_list:
-            self.product_dict[product.name]= product.price
 
+        self.products={}
+        for product in product_list:
+            self.products[product.name]= product.price
+        self.n_max_returned_entries = max
     def __str__(self):
-        return f"{self.product_dict}"
+        return f"{self.products}"
         pass
 
     def get_entries(self, n_letters:int)->product_l:
@@ -101,7 +102,7 @@ class MapServer(Server):
         matching_letters1 = matching_letters + "[0-9][0-9]$"
 
 
-        for product, price in sorted(self.product_dict.items(),key=operator.itemgetter(1)):
+        for product, price in sorted(self.products.items(),key=operator.itemgetter(1)):
             try:
                 if len(matching_list)>self.n_max_returned_entries:
 

@@ -17,7 +17,7 @@ class ServerTest(unittest.TestCase):
     def test_map(self):
 
         self.assertEqual(self.ds.n_max_returned_entries,3)
-        self.assertEqual(self.ds.product_dict['abd123'],1000)
+        self.assertEqual(self.ds.products['abd123'],1000)
     def test_get_entires_listserver(self):
         self.assertEqual(self.ls.get_entries(3)[0].name,'abd123')
     def test_get_entires_mapserver(self):
